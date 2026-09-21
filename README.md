@@ -61,24 +61,6 @@
 | 4 | **Weekly AI report** | 120–180 word summary of wins, struggles, patterns and tips from the last 7 days | Cached per day (not per calendar week, so it never goes stale); manual regenerate button |
 | 5 | **Data chatbot** ("Ask your data") | Answers questions like *"Which day am I most consistent?"* | Grounded in 30 days of your data plus pre-computed weekday stats; short conversation memory; prompt-injection guard; **Try again** on failure |
 
-### Screenshots
-
-<table>
-  <tr>
-    <td><img src="docs/screenshots/insights-dark.webp" alt="Insights page with weekly AI report, consistency grid, charts and chat" width="440"><br><sub><b>Insights</b>: AI report, consistency grid, charts, chat</sub></td>
-    <td><img src="docs/screenshots/ai-wizard.webp" alt="AI habit suggestion wizard showing three suggestions" width="440"><br><sub><b>AI suggestion wizard</b>: add several suggestions in one session</sub></td>
-  </tr>
-  <tr>
-    <td><img src="docs/screenshots/dashboard-light.webp" alt="Dashboard in light mode" width="440"><br><sub><b>Light mode</b> (theme persists, no flash on load)</sub></td>
-    <td><img src="docs/screenshots/ai-chat-light.webp" alt="Ask your data chatbot" width="440"><br><sub><b>Ask your data</b> chatbot</sub></td>
-  </tr>
-  <tr>
-    <td><img src="docs/screenshots/login.webp" alt="Login page" width="440"><br><sub><b>Login</b></sub></td>
-    <td align="center"><img src="docs/screenshots/mobile-dashboard.webp" alt="Responsive mobile dashboard" width="200"><br><sub><b>Responsive</b> (mobile)</sub></td>
-  </tr>
-</table>
-
----
 
 ## 🧱 Tech stack
 
