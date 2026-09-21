@@ -1,0 +1,273 @@
+@import "tailwindcss";
+
+/* Fonts are loaded from <link> tags in index.html. (An @import url(...) placed AFTER
+   `@import "tailwindcss"` is invalid CSS and was silently ignored, so the fonts never loaded.) */
+
+:root {
+  --bg-gradient-light: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 40%, #fdf2f8 100%);
+  --bg-gradient-dark: linear-gradient(135deg, #0f0e2e 0%, #1e1b4b 45%, #3b0764 100%);
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass-shadow: 0 8px 32px rgba(76, 29, 149, 0.08);
+  --field-bg: rgba(255, 255, 255, 0.7);
+  --field-border: rgba(76, 29, 149, 0.2);
+  --text: #1e1b2e;
+  --track: rgba(76, 29, 149, 0.12);
+  --accent: #7c3aed;
+  --accent-2: #06b6d4;
+}
+
+html.dark {
+  --glass-bg: rgba(30, 27, 75, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --field-bg: rgba(255, 255, 255, 0.08);
+  --field-border: rgba(255, 255, 255, 0.2);
+  --text: #f4f2ff;
+  --track: rgba(255, 255, 255, 0.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  margin: 0;
+  background: var(--bg-gradient-light);
+  background-attachment: fixed; /* stops the gradient tiling/seaming on tall pages */
+  color: var(--text);
+  transition: background 0.4s ease, color 0.4s ease;
+  min-height: 100vh;
+}
+
+html.dark body {
+  background: var(--bg-gradient-dark);
+  background-attachment: fixed;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: "Outfit", "Inter", sans-serif;
+}
+
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--glass-shadow);
+}
+
+/* Form inputs that stay readable in BOTH themes (white-on-white before, in light mode) */
+.field {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid var(--field-border);
+  background: var(--field-bg);
+  color: inherit;
+  padding: 0.5rem 0.75rem;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.field:focus {
+  border-color: #a78bfa;
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.25);
+}
+.field::placeholder {
+  color: inherit;
+  opacity: 0.45;
+}
+
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+/* Custom scrollbar for a slightly more crafted feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(124, 58, 237, 0.35);
+  border-radius: 8px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------------- Aurora background ---------------- */
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.aurora span {
+  position: absolute;
+  width: 55vmax;
+  height: 55vmax;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  will-change: transform;
+  animation: aurora-drift 26s ease-in-out infinite alternate;
+}
+.aurora span:nth-child(1) {
+  background: radial-gradient(circle, #a78bfa 0%, transparent 65%);
+  top: -22vmax;
+  left: -12vmax;
+}
+.aurora span:nth-child(2) {
+  background: radial-gradient(circle, #22d3ee 0%, transparent 65%);
+  top: 6vmax;
+  right: -24vmax;
+  animation-duration: 32s;
+  animation-delay: -9s;
+}
+.aurora span:nth-child(3) {
+  background: radial-gradient(circle, #f0abfc 0%, transparent 65%);
+  bottom: -28vmax;
+  left: 18vw;
+  animation-duration: 38s;
+  animation-delay: -16s;
+}
+html.dark .aurora span {
+  opacity: 0.32;
+}
+@keyframes aurora-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(8vmax, 4vmax, 0) scale(1.15);
+  }
+  100% {
+    transform: translate3d(-6vmax, 10vmax, 0) scale(0.95);
+  }
+}
+
+/* ---------------- Orbital "habit solar system" ---------------- */
+.orbit-spin {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: orbit-spin var(--orbit-dur, 24s) linear infinite;
+}
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* hold still while the pointer is over the system so planets are easy to click */
+.orbit-svg:hover .orbit-spin,
+.orbit-svg:focus-within .orbit-spin {
+  animation-play-state: paused;
+}
+.sun-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sun-pulse 3.6s ease-in-out infinite;
+}
+@keyframes sun-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.07);
+  }
+}
+.planet {
+  cursor: pointer;
+  transition: r 0.2s;
+}
+.planet:hover,
+.planet:focus-visible {
+  filter: drop-shadow(0 0 6px currentColor);
+  outline: none;
+}
+
+/* ---------------- Completion ring ---------------- */
+.ring-progress {
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------------- Markdown produced by the AI ---------------- */
+.md-content p {
+  margin: 0 0 0.55rem;
+}
+.md-content p:last-child {
+  margin-bottom: 0;
+}
+.md-content ul,
+.md-content ol {
+  margin: 0.25rem 0 0.55rem 1.25rem;
+}
+.md-content ul {
+  list-style: disc;
+}
+.md-content ol {
+  list-style: decimal;
+}
+.md-content li {
+  margin: 0.2rem 0;
+}
+.md-content strong {
+  font-weight: 600;
+}
+.md-content h1,
+.md-content h2,
+.md-content h3,
+.md-content h4 {
+  font-weight: 600;
+  margin: 0.6rem 0 0.25rem;
+}
+.md-content code {
+  background: var(--track);
+  border-radius: 0.3rem;
+  padding: 0.05rem 0.3rem;
+  font-size: 0.85em;
+}
+
+.fade-in {
+  animation: fade-in 0.35s ease both;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-spin,
+  .sun-pulse,
+  .aurora span,
+  .fade-in {
+    animation: none !important;
+  }
+  .ring-progress {
+    transition: none;
+  }
+}
